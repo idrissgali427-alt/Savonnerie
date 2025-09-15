@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galibusiness - Gestion Avancée</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2 class="app-title">Galibusiness</h2>
+        </div>
+        <ul class="main-nav">
+            <li><a href="#dashboard" class="nav-link active">Tableau de Bord</a></li>
+            <li><a href="#rawMaterialSection" class="nav-link">Matières Premières</a></li>
+            <li><a href="#productionSection" class="nav-link">Production</a></li>
+            <li><a href="#salesExpensesSection" class="nav-link">Ventes & Dépenses</a></li>
+            <li><a href="#bilanGlobalSection" class="nav-link">Bilan Global</a></li>
+            <li><a href="#transactionHistorySection" class="nav-link">Historique des Transactions</a></li>
+            <li><a href="#diagramsSection" class="nav-link">Diagrammes</a></li>
+            <li><a href="#adviceSection" class="nav-link">Conseils</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <p>&copy; 2025 Galibusiness</p>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header class="main-header">
+            <h1 class="app-title">
+                Galibusiness
+                <span class="lucky-sign">☘️✨</span>
+            </h1>
+            <div class="header-info">
+                <p>Responsable: <input type="text" id="managerNameInput" class="input-field" placeholder="Nom du responsable"></p>
+                <p id="currentDateTime"></p>
+            </div>
+        </header>
+
+        <section id="dashboard" class="content-section active">
+            <h2 class="section-title">Tableau de Bord</h2>
+            <div class="card">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Production Journalière</h3>
+                        <p class="metric-value" id="tableBilanProduction">0 FCFA</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Vente Journalière</h3>
+                        <p class="metric-value" id="tableBilanVente">0 FCFA</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Production Mensuelle</h3>
+                        <p class="metric-value" id="tableBilanProductionMensuel">0 FCFA</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Dépenses Journalières</h3>
+                        <p class="metric-value" id="tableBilanDepenses">0 FCFA</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="rawMaterialSection" class="content-section">
+            <h2 class="section-title">Gestion des Matières Premières</h2>
+            <div class="card">
+                <form id="rawMaterialForm">
+                    <div class="form-group">
+                        <label for="receiptNumberRaw">Numéro de Reçu:</label>
+                        <input type="text" id="receiptNumberRaw" name="numero_recu_matiere" class="input-field disabled-field" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rawMaterial">Matière Première:</label>
+                        <select id="rawMaterial" name="matiere_premiere" class="input-field" required>
+                            <option value="">Sélectionnez une matière</option>
+                            <option value="huile palmiste">Huile de Palmiste</option>
+                            <option value="huile de palme">Huile de Palme</option>
+                            <option value="sel ou sucre">Sel ou Sucre</option>
+                            <option value="soude">Soude</option>
+                            <option value="colorant">Colorant</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantityReceived">Quantité Reçue (kg/L):</label>
+                        <input type="number" id="quantityReceived" name="quantite_recue" min="0" step="0.01" class="input-field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantityUsed">Quantité Utilisée (kg/L):</label>
+                        <input type="number" id="quantityUsed" name="quantite_utilisee" min="0" step="0.01" class="input-field" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Enregistrer Matière Première</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card data-table-section">
+                <h3>Tableau Matières Premières</h3>
+                <div class="data-table-container">
+                    <table class="data-table" id="rawMaterialTable">
+                        <thead>
+                            <tr>
+                                <th>Numéro de Reçu</th>
+                                <th>Matière Première</th>
+                                <th>Quantité Reçue</th>
+                                <th>Quantité Utilisée</th>
+                                <th>Date d'Enregistrement</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="productionSection" class="content-section">
+            <h2 class="section-title">Gestion de Production</h2>
+            <div class="card">
+                <form id="productionForm">
+                    <div class="form-group">
+                        <label for="receiptNumberProd">Numéro de Reçu:</label>
+                        <input type="text" id="receiptNumberProd" name="numero_recu_prod" class="input-field disabled-field" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productName">Nom du Produit:</label>
+                        <select id="productName" name="nom_produit" class="input-field" required>
+                            <option value="">Sélectionnez un produit</option>
+                            <option value="Savon Antiseptique">Savon Antiseptique</option>
+                            <option value="Savon de Ménage">Savon de Ménage</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantityProduced">Quantité Produite (kg/L):</label>
+                        <input type="number" id="quantityProduced" name="quantite_produite" min="0" step="0.01" class="input-field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="unitCost">Coût Unitaire de Production (FCFA):</label>
+                        <input type="number" id="unitCost" name="cout_unitaire" min="0" step="0.01" class="input-field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productionManager">Nom du Responsable de Production:</label>
+                        <input type="text" id="productionManager" name="nom_responsable_production" class="input-field" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Enregistrer Production</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card data-table-section">
+                <h3>Tableau Production</h3>
+                <div class="data-table-container">
+                    <table class="data-table" id="productionTable">
+                        <thead>
+                            <tr>
+                                <th>Numéro de Reçu</th>
+                                <th>Nom du Produit</th>
+                                <th>Quantité Produite</th>
+                                <th>Coût Unitaire</th>
+                                <th>Nom du Responsable</th>
+                                <th>Date d'Enregistrement</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="salesExpensesSection" class="content-section">
+            <h2 class="section-title">Gestion des Ventes et Dépenses</h2>
+            <div class="card">
+                <form id="salesExpensesForm">
+                    <div class="form-group">
+                        <label for="receiptNumberSales">Numéro de Reçu:</label>
+                        <input type="text" id="receiptNumberSales" name="numero_recu_vente" class="input-field disabled-field" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pointOfSale">Point de Vente:</label>
+                        <input type="text" id="pointOfSale" name="point_de_vente" class="input-field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productSold">Produit Vendu:</label>
+                        <select id="productSold" name="produit_vendu" class="input-field" required>
+                            <option value="">Sélectionnez le produit vendu</option>
+                            <option value="Savon Antiseptique">Savon Antiseptique</option>
+                            <option value="Savon de Ménage">Savon de Ménage</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="productQuantity">Quantité Produit Vendue:</label>
+                        <input type="number" id="productQuantity" name="quantite_produit" min="0" class="input-field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="unitPrice">Prix Unitaire (FCFA):</label>
+                        <input type="number" id="unitPrice" name="prix_unitaire" min="0" step="0.01" class="input-field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expenses">Dépenses (hors coût de production) (FCFA):</label>
+                        <input type="number" id="expenses" name="depenses" min="0" step="0.01" class="input-field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expenseProof">Justificatif des Dépenses:</label>
+                        <input type="file" id="expenseProof" name="justificatif_depenses" accept="image/*,.pdf">
+                        <small>Fichiers acceptés: images (jpg, png) ou PDF.</small>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Enregistrer Vente/Dépense</button>
+                        <button id="printReceiptButton" class="btn btn-secondary">Imprimer Reçu de Vente</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card data-table-section">
+                <h3>Tableau Ventes & Dépenses</h3>
+                <div class="data-table-container">
+                    <table class="data-table" id="salesExpensesTable">
+                        <thead>
+                            <tr>
+                                <th>Numéro de Reçu</th>
+                                <th>Point de Vente</th>
+                                <th>Produit Vendu</th>
+                                <th>Quantité</th>
+                                <th>Prix Unitaire</th>
+                                <th>Dépenses</th>
+                                <th>Justificatif</th>
+                                <th>Date d'Enregistrement</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="bilanGlobalSection" class="content-section">
+            <h2 class="section-title">Bilan Global</h2>
+            <div class="card bilan-controls">
+                <div class="form-group">
+                    <label for="bilanMonth">Mois:</label>
+                    <input type="month" id="bilanMonth" class="input-field">
+                </div>
+                <div class="form-group">
+                    <label for="bilanYear">Année:</label>
+                    <input type="number" id="bilanYear" class="input-field" min="2000" placeholder="YYYY">
+                </div>
+                <button id="printBilanButton" class="btn btn-secondary">Imprimer Bilan et Conseils</button>
+            </div>
+            <div class="card data-table-section">
+                <h3>Résumé des Performances</h3>
+                <div class="data-table-container">
+                    <table class="data-table" id="bilanGlobalTable">
+                        <thead>
+                            <tr>
+                                <th>Catégorie</th>
+                                <th>Valeur Actuelle</th>
+                                <th>Dernière Mise à Jour</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bilan-entry production-daily-color">
+                                <td>Production Journalière</td>
+                                <td id="tableBilanProduction" class="bilan-value">0 FCFA</td>
+                                <td id="lastUpdateProduction">N/A</td>
+                            </tr>
+                            <tr class="bilan-entry sales-daily-color">
+                                <td>Vente Journalière</td>
+                                <td id="tableBilanVente" class="bilan-value">0 FCFA</td>
+                                <td id="lastUpdateVente">N/A</td>
+                            </tr>
+                            <tr class="bilan-entry production-monthly-color">
+                                <td>Production Mensuelle</td>
+                                <td id="tableBilanProductionMensuel" class="bilan-value">0 FCFA</td>
+                                <td id="lastUpdateProductionMensuel">N/A</td>
+                            </tr>
+                            <tr class="bilan-entry expenses-daily-color">
+                                <td>Dépenses Journalières</td>
+                                <td id="tableBilanDepenses" class="bilan-value">0 FCFA</td>
+                                <td id="lastUpdateDepenses">N/A</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="transactionHistorySection" class="content-section">
+            <h2 class="section-title">Historique des Transactions</h2>
+            <div class="card">
+                <h3>Rechercher et Filtrer</h3>
+                <div class="bilan-controls">
+                    <div class="form-group">
+                        <label for="searchReceiptNumber">Numéro de Reçu:</label>
+                        <input type="text" id="searchReceiptNumber" placeholder="Ex: VE-240618-..." class="input-field" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterMonth">Mois (Production/Vente):</label>
+                        <input type="month" id="filterMonth" class="input-field">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterPointOfSale">Point de Vente (Vente):</label>
+                        <input type="text" id="filterPointOfSale" placeholder="Nom du point de vente" class="input-field">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterProductType">Type de Produit:</label>
+                        <select id="filterProductType" class="input-field">
+                            <option value="">Tous</option>
+                            <option value="Savon Antiseptique">Savon Antiseptique</option>
+                            <option value="Savon de Ménage">Savon de Ménage</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-actions" style="text-align: left;">
+                    <button id="searchButton" class="btn btn-secondary">Rechercher</button>
+                    <button id="clearSearchButton" class="btn btn-secondary">Effacer Recherche</button>
+                    <button id="filterButton" class="btn btn-primary">Filtrer Historique</button>
+                    <button id="clearFilterButton" class="btn btn-danger">Effacer Filtres</button>
+                </div>
+                <p id="filterResult"></p>
+            </div>
+            <div class="card data-table-section">
+                <h3>Transactions</h3>
+                <div class="data-table-container">
+                    <table class="data-table" id="transactionHistoryTable">
+                        <thead>
+                            <tr>
+                                <th>Numéro de Reçu</th>
+                                <th>Type</th>
+                                <th>Détails</th>
+                                <th>Quantité/Montant</th>
+                                <th>Point de Vente</th>
+                                <th>Justificatif</th>
+                                <th>Date d'Enregistrement</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="diagramsSection" class="content-section">
+            <h2 class="section-title">Diagrammes et Analyse</h2>
+            <div class="card">
+                <div class="bilan-controls">
+                    <div class="form-group">
+                        <label for="diagramMonth">Mois:</label>
+                        <input type="month" id="diagramMonth" class="input-field">
+                    </div>
+                    <div class="form-group">
+                        <label for="diagramYear">Année:</label>
+                        <input type="number" id="diagramYear" class="input-field" min="2000" placeholder="YYYY">
+                    </div>
+                    <button id="generateDiagramButton" class="btn btn-primary">Générer Diagramme</button>
+                </div>
+                <figure class="chart-container">
+                    <h3>Production vs. Ventes Mensuelles</h3>
+                    <canvas id="productionSalesChart"></canvas>
+                    <figcaption>Ce diagramme compare la quantité de produits fabriqués à la quantité vendue par mois.</figcaption>
+                </figure>
+                <figure class="chart-container">
+                    <h3>Répartition des Dépenses</h3>
+                    <canvas id="expensesChart"></canvas>
+                    <figcaption>Ce diagramme circulaire illustre la part de chaque type de dépense (matières premières, autres).</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section id="adviceSection" class="content-section">
+            <h2 class="section-title">Conseils de Gestion</h2>
+            <div class="card">
+                <div class="conseils-entry">
+                    <h3>Optimisation des Stocks</h3>
+                    <p>Gardez un œil sur les stocks de matières premières. Commandez à l'avance pour éviter les ruptures de stock, mais ne surstockez pas pour ne pas immobiliser trop de capital.</p>
+                </div>
+                <div class="conseils-entry">
+                    <h3>Analyse des Coûts</h3>
+                    <p>Comparez régulièrement le coût unitaire de production avec le prix de vente unitaire pour évaluer votre marge bénéficiaire. Si les coûts augmentent, ajustez vos prix ou trouvez des fournisseurs plus compétitifs.</p>
+                </div>
+                <div class="conseils-entry">
+                    <h3>Suivi des Ventes</h3>
+                    <p>Utilisez le tableau des ventes pour identifier les produits les plus rentables et les points de vente les plus performants. Cela vous aidera à concentrer vos efforts marketing.</p>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
