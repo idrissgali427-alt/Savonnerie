@@ -631,25 +631,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-//CODE DE PROTECTION
 
-
-
-// Définis le mot de passe requis
-const motDePasseRequis = '00C1';
-
-// Demande à l'utilisateur d'entrer le mot de passe
-let motDePasseSaisi = prompt('Veuillez entrer le mot de passe pour accéder à l\'application.');
-
-// Vérifie si le mot de passe saisi est correct
-if (motDePasseSaisi === motDePasseRequis) {
-  // Le mot de passe est correct, tu peux continuer
-  alert('Accès accordé !');
-  // Ici, tu peux mettre tout le code de ton application
-  // Par exemple, afficher le contenu de la page
-} else {
-  // Le mot de passe est incorrect
-  alert('Mot de passe incorrect. Accès refusé !');
-  // Tu peux rediriger l'utilisateur ou cacher le contenu
-  window.location.href = ''; // Exemple de redirection
-}
